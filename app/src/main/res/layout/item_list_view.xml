@@ -7,15 +7,16 @@
     android:weightSum="10">
 
     <TextView
-        android:layout_margin="@dimen/margin_five"
+        android:id="@+id/text_view_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_five"
         android:layout_weight="9"
         android:textSize="@dimen/text_size_16"
         tools:text="Salom qalesan tinchmi Salom qalesan tinchmi Salom qalesan tinchmi " />
 
     <ImageView
-
+        android:id="@+id/image_view_web_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

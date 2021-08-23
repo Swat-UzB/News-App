@@ -1,3 +1,3 @@
 package com.example.newsapp
 
-class News(private var title: String, var url: String)
+class News(var title: String, var url: String)

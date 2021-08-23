@@ -1,17 +1,18 @@
 package com.example.newsapp
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.newsapp.adapters.NewsAdapter
 import com.example.newsapp.databinding.ActivityMainBinding
 import org.json.JSONArray
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var newsAdapter: NewsAdapter
     private var newsList = ArrayList<News>()
     private var page = 1
     private val KEY = "bebc3f22-e284-494c-819d-22de0c817424"
@@ -21,19 +22,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.searchButton.setOnClickListener {
             page = 1
             val searchWord = binding.searchEditText.text.toString()
             val url = String.format(GUARDIAN_URL, page, searchWord, KEY)
             getResponse(page, url)
-
         }
         binding.loadMoreButton.setOnClickListener {
             page += 1
             val searchWord = binding.searchEditText.text.toString()
             val url = String.format(GUARDIAN_URL, page, searchWord, KEY)
             getResponse(page, url)
+
         }
     }
 
@@ -67,6 +67,8 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+        newsAdapter = NewsAdapter(newsList)
+        binding.listResult.adapter = newsAdapter
     }
 
     private fun addToArray(jsonArray: JSONArray) {

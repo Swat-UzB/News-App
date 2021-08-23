@@ -70,8 +70,4 @@ class MainActivity : AppCompatActivity() {
         newsAdapter = NewsAdapter(newsList)
         binding.listResult.adapter = newsAdapter
     }
-
-    private fun addToArray(jsonArray: JSONArray) {
-
-    }
 }

@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text_view_title"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:weightSum="10">
-
-    <TextView
-        android:id="@+id/text_view_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_five"
-        android:layout_weight="9"
-        android:textSize="@dimen/text_size_16"
-        tools:text="Salom qalesan tinchmi Salom qalesan tinchmi Salom qalesan tinchmi " />
-
-    <ImageView
-        android:id="@+id/image_view_web_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/ic_open_link" />
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_five"
+    android:textSize="@dimen/text_size_16"
+    app:drawableEndCompat="@drawable/ic_open_link"
+    tools:text="Salom qalesan tinchmi Salom qalesan tinchmi Salom qalesan tinchmi " />

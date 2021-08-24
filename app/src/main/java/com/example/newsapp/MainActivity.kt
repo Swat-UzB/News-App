@@ -1,6 +1,7 @@
 package com.example.newsapp
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -22,33 +23,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.searchButton.setOnClickListener {
-            page = 1
-            val searchWord = binding.searchEditText.text.toString()
-            val url = String.format(GUARDIAN_URL, page, searchWord, KEY)
-            getResponse(page, url)
+            newsList.clear()
+            getResponse()
         }
+
         binding.loadMoreButton.setOnClickListener {
             page += 1
-            val searchWord = binding.searchEditText.text.toString()
-            val url = String.format(GUARDIAN_URL, page, searchWord, KEY)
-            getResponse(page, url)
+            getResponse()
 
         }
     }
 
-    private fun getResponse(page: Int, url: String) {
+    private fun getResponse() {
+        val url = getUrl()
         val queue = Volley.newRequestQueue(this)
         val stringRequest = StringRequest(Request.Method.GET, url, { response ->
             try {
-                response
                 extractNewsFromJson(response)
             } catch (exception: Exception) {
                 exception.printStackTrace()
             }
         },
             { error ->
-                Toast.makeText(this, error.message, Toast.LENGTH_SHORT)
+                Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
             })
         queue.add(stringRequest)
     }
@@ -58,7 +57,6 @@ class MainActivity : AppCompatActivity() {
         val getResponse = jsonObject.getJSONObject("response")
         val getResultArray = getResponse.getJSONArray("results")
 
-        newsList.clear()
         for (i in 0..9) {
             newsList.add(
                 News(
@@ -69,5 +67,10 @@ class MainActivity : AppCompatActivity() {
         }
         newsAdapter = NewsAdapter(newsList)
         binding.listResult.adapter = newsAdapter
+    }
+
+    private fun getUrl(): String {
+        val searchWord = binding.searchEditText.text.toString()
+        return String.format(GUARDIAN_URL, page, searchWord, KEY)
     }
 }
